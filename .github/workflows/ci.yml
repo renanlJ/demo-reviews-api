@@ -67,7 +67,7 @@ jobs:
       - name: Secret scanning (gitleaks)
         uses: gitleaks/gitleaks-action@v2
       - name: Filesystem scan (trivy)
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: fs
           severity: CRITICAL,HIGH
@@ -111,7 +111,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Scan image (trivy)
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ env.IMAGE_NAME }}:ci
           format: sarif
