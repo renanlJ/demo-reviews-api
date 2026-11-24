@@ -1,0 +1,82 @@
+openapi: 3.1.0
+info:
+  title: demo-reviews-api
+  version: 0.1.0
+  description: >
+    Customer reviews service for the Demo Commerce Platform. Returns
+    reviewer name, review text, rating and creation date per product.
+servers:
+  - url: http://localhost:8000
+tags:
+  - name: reviews
+    description: Customer reviews.
+  - name: platform
+    description: Health, readiness and metrics.
+paths:
+  /api/v1/reviews:
+    get:
+      operationId: listReviews
+      summary: List every review, ordered by creation date.
+      tags: [reviews]
+      responses:
+        "200":
+          description: All reviews.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Review"
+  /api/v1/reviews/{productId}:
+    get:
+      operationId: getReviews
+      summary: Reviews for a single product.
+      tags: [reviews]
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: "^SKU-[0-9]+$"
+      responses:
+        "200":
+          description: Reviews for the product (possibly empty).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Review"
+        "404":
+          description: Unknown product.
+  /healthz:
+    get:
+      operationId: healthz
+      summary: Liveness probe.
+      tags: [platform]
+      responses:
+        "200":
+          description: Process is alive.
+  /readyz:
+    get:
+      operationId: readyz
+      summary: Readiness probe.
+      tags: [platform]
+      responses:
+        "200":
+          description: Service is ready.
+        "503":
+          description: Not ready (fail-readiness scenario enabled).
+components:
+  schemas:
+    Review:
+      type: object
+      required: [id, productId, reviewer, text, rating, createdAt]
+      properties:
+        id: {type: string, example: rv-1001-1}
+        productId: {type: string, example: SKU-1001}
+        reviewer: {type: string, example: Ada Lovelace}
+        text: {type: string}
+        rating: {type: integer, minimum: 1, maximum: 5}
+        createdAt: {type: string, format: date-time}

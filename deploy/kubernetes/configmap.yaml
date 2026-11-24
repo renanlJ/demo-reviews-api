@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-reviews-api
+  labels:
+    app: demo-reviews-api
+    system: demo-commerce
+data:
+  PORT: "8000"
+  LOG_LEVEL: info
+  FAIL_READINESS: "false"
+  OTEL_EXPORTER_OTLP_ENDPOINT: ""

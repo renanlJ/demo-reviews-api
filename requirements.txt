@@ -1,0 +1,11 @@
+# Runtime dependencies, pinned to the versions validated in CI.
+# Transitive dependencies are resolved by pip within these constraints.
+fastapi==0.165.0
+uvicorn[standard]==0.54.0
+pydantic==2.14.4
+pydantic-settings==2.16.3
+structlog==26.1.0
+prometheus-client==0.26.0
+opentelemetry-sdk==1.45.2
+opentelemetry-exporter-otlp-proto-http==1.45.2
+opentelemetry-instrumentation-fastapi==0.66b2

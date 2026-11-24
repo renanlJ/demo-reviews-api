@@ -1,0 +1,17 @@
+.git
+.github
+docs
+deploy
+tests
+Dockerfile
+.dockerignore
+*.md
+.venv
+__pycache__
+.pytest_cache
+.ruff_cache
+.mypy_cache
+coverage.xml
+htmlcov
+test-results
+requirements-dev.txt
